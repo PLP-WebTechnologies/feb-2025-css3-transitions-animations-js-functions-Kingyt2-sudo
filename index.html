@@ -3,60 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loises Awesome Form!</title>
+    <title>My Magical Box!</title>
     <style>
-        
+       
         body {
             font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; 
+            background-color: #f0f0f0; /* Light gray background */
         }
-        .form-group {
-            margin-bottom: 10px;
+        #myBox {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin-bottom: 20px;
+            /* We'll add animation here later! */
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        input[type="text"], input[type="number"], button {
-            padding: 8px;
+        input[type="text"] {
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            width: 200px;
+            width: 250px;
+            margin-bottom: 10px;
         }
-        button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        .error {
-            color: red;
-            font-size: 0.8em;
-        }
-        .success {
-            color: green;
+        #messageArea {
+            font-size: 1.2em;
             font-weight: bold;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Tell Me About Yourself!</h1>
-
-    <form id="myForm">
-        <div class="form-group">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name">
-            <p class="error" id="nameError"></p>
-        </div>
-
-        <div class="form-group">
-            <label for="age">Your Age:</label>
-            <input type="number" id="age" name="age">
-            <p class="error" id="ageError"></p>
-        </div>
-
-        <button type="submit">Submit!</button>
-    </form>
-
-    <div id="messageArea" style="margin-top: 20px;"></div>
+    <div id="myBox"></div>
+    <div class="input-container">
+        <label for="secretWordInput">Type the secret word to make the box dance:</label>
+        <input type="text" id="secretWordInput" placeholder="Type 'dance' here">
+        <div id="messageArea"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -1,33 +1,58 @@
-const form = document.getElementById('myForm'); 
-const nameInput = document.getElementById('name'); 
-const ageInput = document.getElementById('age');   
-const nameError = document.getElementById('nameError'); 
-const ageError = document.getElementById('ageError');   
-const messageArea = document.getElementById('messageArea'); 
+const myBox = document.getElementById('myBox');
+const secretWordInput = document.getElementById('secretWordInput');
+const messageArea = document.getElementById('messageArea');
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault(); 
 
-    let isValid = true; 
+let favoriteColor = localStorage.getItem('favoriteBoxColor'); 
 
-    if (nameInput.value.trim() === '') {
-        nameError.textContent = 'Please tell me your name!'; 
-        isValid = false; 
-    } else {
-        nameError.textContent = ''; 
+if (favoriteColor) {
+    myBox.style.backgroundColor = favoriteColor; 
+    messageArea.textContent = `Welcome back! I remember your favorite color is ${favoriteColor}!`;
+} else {
+    messageArea.textContent = "Hello! Type 'dance' to see my moves!";
+}
+
+// 3. Creating a dance (CSS Animation)!
+myBox.style.transition = 'all 2s ease-in-out'; 
+
+function startDance() {
+    myBox.style.animation = 'dance 2s infinite alternate'; 
+}
+
+function stopDance() {
+    myBox.style.animation = ''; 
+}
+
+// 4. The dance spell (CSS Animation Keyframes)!
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes dance {
+        from {
+            transform: rotate(0deg);
+            background-color: ${favoriteColor || 'blue'}; // Use remembered color or blue
+        }
+        to {
+            transform: rotate(360deg);
+            background-color: purple;
+        }
     }
+`;
+document.head.appendChild(style);
 
-    
-    if (ageInput.value === '' || isNaN(ageInput.value)) {
-        ageError.textContent = 'Please tell me your age as a number!'; 
-        isValid = false; 
+// 5. Listening for the secret word (Event Listener)!
+secretWordInput.addEventListener('input', function() {
+    const word = secretWordInput.value.toLowerCase(); 
+
+    if (word === 'dance') {
+        startDance(); 
+        messageArea.textContent = "I'm dancing!";
+        favoriteColor = 'purple'; 
+        localStorage.setItem('favoriteBoxColor', favoriteColor); 
+    } else if (word === 'stop') {
+        stopDance();
+        messageArea.textContent = "Okay, I'll stop.";
     } else {
-        ageError.textContent = ''; 
-    }
-
-    
-    if (isValid) {
-        messageArea.textContent = `Hello, ${nameInput.value}! You are ${ageInput.value} years old. That's awesome!`; 
-        form.reset(); 
+        stopDance(); 
+        messageArea.textContent = "Keep typing the secret word...";
     }
 });
